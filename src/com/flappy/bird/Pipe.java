@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 public class Pipe {
     private static final int WIDTH = 64;
     private  static final int HEIGHT = 512;
+    private static final String TOP_PIPE_IMG = "/com/flappy/bird/images/toppipe.png";
+    private static final String BOTTOM_PIPE_IMG = "/com/flappy/bird/images/bottompipe.png";
     private int x, y;
     private boolean passed = false;
     private Image img;
@@ -12,7 +14,7 @@ public class Pipe {
     public Pipe(int y, boolean isTopPipe) {
         this.x = GamePanel.BOARD_WIDTH;
         this.y = y;
-        this.img = new ImageIcon(getClass().getResource(isTopPipe ? "/com/flappy/bird/images/toppipe.png" : "/com/flappy/bird/images/bottompipe.png")).getImage();
+        this.img = new ImageIcon(getClass().getResource(isTopPipe ? TOP_PIPE_IMG : BOTTOM_PIPE_IMG)).getImage();
     }
 
     public void move() {

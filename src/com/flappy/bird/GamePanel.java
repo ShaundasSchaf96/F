@@ -7,6 +7,9 @@ import javax.swing.*;
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
     public static final int BOARD_WIDTH = 500;
     public static final int BOARD_HEIGHT = 889;
+    private static final String FLAPPY_BIRD_IMG = "/com/flappy/bird/images/flappybird.png";
+    private static final String  FLAPPY_BIRD_BG= "/com/flappy/bird/images/flappybirdbg.png";
+    private static final String FONT = "Arial";
 
     private Bird bird;
     private PipeManager pipeManager;
@@ -22,7 +25,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         setFocusable(true);
         addKeyListener(this);
 
-        bird = new Bird(BOARD_HEIGHT / 8, BOARD_WIDTH / 2, new ImageIcon(getClass().getResource("/com/flappy/bird/images/flappybird.png")).getImage());
+        bird = new Bird(BOARD_HEIGHT / 8, BOARD_WIDTH / 2, new ImageIcon(getClass().getResource(FLAPPY_BIRD_IMG)).getImage());
         pipeManager = new PipeManager();
 
         pipeTimer = new Timer(1500, new ActionListener() {
@@ -43,13 +46,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         draw(g);
     }
 
-    public void draw(Graphics g) {
-        g.drawImage(new ImageIcon(getClass().getResource("/com/flappy/bird/images/flappybirdbg.png")).getImage(), 0, 0, BOARD_WIDTH, BOARD_HEIGHT, null);
+    private void draw(Graphics g) {
+        g.drawImage(new ImageIcon(getClass().getResource(FLAPPY_BIRD_BG)).getImage(), 0, 0, BOARD_WIDTH, BOARD_HEIGHT, null);
         bird.draw(g);
         pipeManager.draw(g);
 
         g.setColor(Color.white);
-        g.setFont(new Font("Arial", Font.PLAIN, 32));
+        g.setFont(new Font(FONT, Font.PLAIN, 32));
         if (gameOver) {
             g.drawString("Game Over: " + String.valueOf((int) score), 10, 35);
         } else {
@@ -57,7 +60,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         }
     }
 
-    public void move() {
+    private void move() {
         bird.move();
         pipeManager.movePipes();
 
@@ -68,7 +71,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         }
     }
 
-    public void restartGame() {
+    private void restartGame() {
         gameOver = false;
         score = 0;
         bird.resetPosition();
@@ -79,7 +82,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
         requestFocusInWindow();
     }
 
-    public void stopTimers() {
+    private void stopTimers() {
         pipeTimer.stop();
         gameLoop.stop();
     }
